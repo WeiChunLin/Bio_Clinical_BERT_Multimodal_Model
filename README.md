@@ -55,7 +55,7 @@ Ensure that you have:
 To install the necessary packages, run the following command:
 
 ```bash
-pip install torch pandas transformers
+pip install pandas
 ```
 ## Code structure
 - `Multi_BERT`: The main classification model class with transformer encoder.
