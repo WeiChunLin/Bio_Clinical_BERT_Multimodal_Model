@@ -1,94 +1,60 @@
-# Bio_Clinical_BERT_Multimodal_Model
-A predictive model for glaucoma surgical outcomes that utilizes Bio-Clinical BERT and a multimodal neural network. The model incorporates both structured EHR data and free-text operative notes.
+# Bio-ClinicalBERT for Glaucoma Surgery Outcome Prediction
 
-# PyTorch Text Classification Model with Transformer Encoder
-
-This project contains a PyTorch implementation for classifying text with the help of transformer encoders. It utilizes Word2Vec for embeddings, and several other techniques like Positional Encoding, Dropout, and Adam optimizer.
+This repository provides the codebase for the multi-modal predictive model for glaucoma surgical outcomes. We utilize Bio-Clinical BERT to extract information from operative notes and combine it with static features. The code is written in Python and uses PyTorch for the deep learning components.
 
 ## Table of Contents
-
-- [Features](#features)
-- [Requirements](#requirements)
-- [How to Run](#how-to-run)
-- [Code Structure](#code-structure)
-- [Training the Model](#training-the-model)
-- [Contributing](#contributing)
-- [Acknowledgments](#acknowledgments)
-- [Authors](#authors)
+- [Data Structure](#data-structure)
+- [Functionalities](#functionalities)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Model Architecture](#model-architecture)
+- [Training](#training)
+- [Evaluation](#evaluation)
 - [License](#license)
-- [Contact](#contact)
 
-## Features
+## Data Structure
 
-- Transformer Encoder Layer
-- Positional Encoding
-- Adam optimizer with learning rate scheduler
-- Class weights for imbalanced classes
-- Cross Entropy Loss function
-- Pretrained Word2Vec model for embeddings
+The dataset should include:
 
-## Requirements
+- A target column named `output`, which contains three classes for prediction.
+- A feature column named `clean-up operative notes` that includes the operative notes.
+- 75 columns of structured EHR data.
 
+## Functionalities
+
+This codebase is designed to:
+
+1. Import an Excel file into a Pandas DataFrame.
+2. Split the feature and target variables into training, validation, and test sets (70%/10%/20%).
+3. Initialize a ClinicalBERT tokenizer for text processing.
+4. Tokenize the clean-up operative notes and create data loaders for training, validation, and testing.
+5. Utilize an input dimension of [512, 512, 75, 1], where:
+   - The first two dimensions are the encoded input IDs and attention masks from Bio-Clinical BERT.
+   - The third dimension contains structured EHR (Electronic Health Records) data.
+   - The fourth dimension holds the outcome labels.
+6. Set up a PyTorch model class that combines a pre-trained Bio_ClinicalBERT model with static data.
+7. Initialize and configure the Multi_BERT model and move it to the specified device (CPU or GPU).
+8. Set three functions: get_accuracy, train, and evaluate.
+9. Start to train the PyTorch model using a specified set of parameters, optimizer, and loss function.
+10. Evaluate the model on a test set to generate predictions with ROCs, P-R curves, and classification reports.
+
+## Getting Started
+
+### Prerequisites
+
+Ensure that you have:
+- Python 
 - PyTorch
-- NumPy
-- Matplotlib
-- tqdm
-- scikit-learn
+- Transformers library from Hugging Face
+- Other requirements 
 
-## How to Run
+### Installation
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-repo.git
-    ```
-2. Navigate to the project directory and install requirements:
-    ```bash
-    cd project-directory
-    pip install -r requirements.txt
-    ```
-3. Run the main script to train the model:
-    ```bash
-    python main.py
-    ```
+To install the necessary packages, run the following command:
 
-## Code Structure
+```bash
+pip install torch pandas transformers
+```
 
-- `Word2Vec.load()`: For loading pre-trained Word2Vec models.
-- `PositionalEncoding`: Class for generating positional encoding.
-- `Multi_TF_Class`: The main classification model class with transformer encoder.
-- `train()`: Function to train the model.
-- `evaluate()`: Function to evaluate the model.
-- `get_accuracy()`: Function to compute accuracy during training and validation.
-
-## Training the Model
-
-- **Batch Size**: 16
-- **Epochs**: 250
-- **Learning Rate**: 4e-5
-- **Weight Decay for L2 Regularization**: 1e-6
-- **Class Weights**: [0.2584, 0.8678, 0.8737]
-- **Learning Rate Scheduler**: Reduces learning rate by a factor of 0.5 every 100 epochs
-
-## Contributing
-
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
-
-## Acknowledgments
-
-- Special thanks to the creators of PyTorch and scikit-learn for their well-documented libraries.
-- Many thanks to all who contributed to the pre-trained Word2Vec models.
-  
-## Authors
-
-- [Your Name](https://github.com/your-github-profile)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Contact
-
-- **Email**: your.email@example.com
-- **Twitter**: [@your_username](https://twitter.com/your_username)
-
-Feel free to contact me if you have any questions or want to contribute.
