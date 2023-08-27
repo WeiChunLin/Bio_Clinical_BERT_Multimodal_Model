@@ -8,6 +8,7 @@ This repository provides the codebase for the multi-modal predictive model for g
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+- [Code structure](#code-structure)
 - [Model Architecture](#model-architecture)
 - [Training](#training)
 - [Evaluation](#evaluation)
@@ -57,7 +58,7 @@ To install the necessary packages, run the following command:
 pip install torch pandas transformers
 ```
 ## Code structure
-- `Multi_TF_Class`: The main classification model class with transformer encoder.
+- `Multi_BERT`: The main classification model class with transformer encoder.
 - `train()`: Function to train the model.
 - `evaluate()`: Function to evaluate the model.
 - `get_accuracy()`: Function to compute accuracy during training and validation.
@@ -69,6 +70,11 @@ Our model leverages a pre-trained ClinicalBERT and adds custom layers for dimens
 ## Training
 
 The model is trained using a defined set of hyperparameters, a specified loss function, and an optimizer. 
+- **Batch Size**: 16
+- **Epochs**: 200
+- **Learning Rate**: 4e-5
+- **Weight Decay for L2 Regularization**: 1e-5
+- **Class Weights**: [0.2584, 0.8678, 0.8737]
 
 ## Evaluation
 The model is evaluated using a separate test dataset. Evaluation metrics include AUC (Area Under the Curve), Precision-Recall Curve, and Classification reports.
