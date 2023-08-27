@@ -30,7 +30,7 @@ This codebase is designed to:
 2. Split the feature and target variables into training, validation, and test sets (70%/10%/20%).
 3. Initialize a ClinicalBERT tokenizer for text processing.
 4. Tokenize the clean-up operative notes and create data loaders for training, validation, and testing.
-5. Utilize an input dimension of [512, 512, 75, 1], where:
+5. Utilize an input dimension of `[512, 512, 75, 1]`, where:
    - The first two dimensions are the encoded input IDs and attention masks from Bio-Clinical BERT.
    - The third dimension contains structured EHR (Electronic Health Records) data.
    - The fourth dimension holds the outcome labels.
